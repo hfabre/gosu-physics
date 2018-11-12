@@ -4,7 +4,7 @@ module Gosu
       attr_accessor :speed_x, :speed_y
       attr_reader :width, :height, :friction, :x, :y
 
-      def initialize(x, y, width, height, friction: 0.98, max_speed: 300, move_speed: 500, jump_speed: 30000, jump_max: 2)
+      def initialize(x, y, width, height, friction: 0.98)
         @x = x
         @y = y
         @width = width
@@ -12,19 +12,22 @@ module Gosu
         @friction = friction
         @speed_x = 0
         @speed_y = 0
-        @max_speed = max_speed
-        @move_speed = move_speed
-        @jump_speed = jump_speed
-        @jump_count = 0
-        @jump_max = jump_max
       end
 
-      def move_left(dt)
-        @speed_x = @speed_x + dt * @move_speed
+      def move_left(dt, speed)
+        @speed_x = @speed_x + dt * speed
       end
 
-      def move_right(dt)
-        @speed_x = @speed_x - dt * @move_speed
+      def move_right(dt, speed)
+        @speed_x = @speed_x - dt * speed
+      end
+
+      def move_up(dt, speed)
+        @speed_y = @speed_y - dt * speed
+      end
+
+      def move_down(dt, speed)
+        @speed_y = @speed_y + dt * speed
       end
 
       def apply_gravity(dt)
@@ -41,18 +44,12 @@ module Gosu
         @speed_y = @speed_y * surface.friction
       end
 
-      def jump(dt)
-        return if @jump_count >= @jump_max
-        @speed_y = @speed_y - dt * @jump_speed
-        @jump_count += 1
-      end
-
-      def reset_jump!
-        @jump_count = 0
-      end
-
       def reset_speed_x
         @speed_x = 0
+      end
+
+      def reset_speed_y
+        @speed_y = 0
       end
 
       def update(dt)
