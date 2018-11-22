@@ -18,11 +18,12 @@ module Gosu
     class BasePlayer
       attr_reader :body
 
-      def initialize(x = 50, y = 50, width = 32, height = 32)
+      def initialize(x = 50, y = 50, width = 32, height = 32, color: Gosu::Color::RED)
         @x = x
         @y = y
         @width = width
         @height = height
+        @color = color
         @body = PlayerBody.new(x, y, width, height)
         @jump_speed = 30_000
         @jump_count = 0
@@ -52,11 +53,17 @@ module Gosu
         @body.update(dt)
       end
 
+      def to_h
+        {
+          body: @body.to_h
+        }
+      end
+
       def draw
-        Gosu.draw_line(@body.x, @body.y, Gosu::Color::RED, @body.x + @width, @body.y, Gosu::Color::RED)
-        Gosu.draw_line(@body.x, @body.y + @height, Gosu::Color::RED, @body.x + @width, @body.y + @height, Gosu::Color::RED)
-        Gosu.draw_line(@body.x, @body.y, Gosu::Color::RED, @body.x, @body.y + @height, Gosu::Color::RED)
-        Gosu.draw_line(@body.x + @height, @body.y, Gosu::Color::RED, @body.x + @width, @body.y + @width, Gosu::Color::RED)
+        Gosu.draw_line(@body.x, @body.y, @color, @body.x + @width, @body.y, @color)
+        Gosu.draw_line(@body.x, @body.y + @height, @color, @body.x + @width, @body.y + @height, @color)
+        Gosu.draw_line(@body.x, @body.y, @color, @body.x, @body.y + @height, @color)
+        Gosu.draw_line(@body.x + @width, @body.y, @color, @body.x + @width, @body.y + @height, @color)
       end
     end
   end

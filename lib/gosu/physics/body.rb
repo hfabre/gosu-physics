@@ -66,11 +66,23 @@ module Gosu
         Gosu.draw_line(@x, @y, Gosu::Color::GREEN, @x + @width, @y, Gosu::Color::GREEN)
         Gosu.draw_line(@x, @y + @height, Gosu::Color::GREEN, @x + @width, @y + @height, Gosu::Color::GREEN)
         Gosu.draw_line(@x, @y, Gosu::Color::GREEN, @x, @y + @height, Gosu::Color::GREEN)
-        Gosu.draw_line(@x + @height, @y, Gosu::Color::GREEN, @x + @width, @y + @width, Gosu::Color::GREEN)
+        Gosu.draw_line(@x + @width, @y, Gosu::Color::GREEN, @x + @width, @y + @height, Gosu::Color::GREEN)
       end
 
       def to_s
         "center #{center} - half_size #{@half_size}"
+      end
+
+      def to_h
+        {
+          x: @x,
+          y: @y,
+          width: @width,
+          height: @height,
+          friction: @friction,
+          speed_x: @speed_x,
+          speed_y: @speed_y
+        }
       end
 
       private
