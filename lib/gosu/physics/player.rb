@@ -9,9 +9,8 @@ module Gosu
         AABB.collision_direction(self, other_body)
       end
 
-      def update(dt)
-        super(dt)
-        self.apply_gravity(dt)
+      def round_y!(value)
+        @y = (((@y + @height) / value).round * value) - @height
       end
     end
 
@@ -28,7 +27,7 @@ module Gosu
         @jump_speed = 30_000
         @jump_count = 0
         @max_jump = 2
-        @move_speed = 500
+        @move_speed = 700
       end
 
       def move_right(dt)

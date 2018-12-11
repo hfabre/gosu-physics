@@ -2,7 +2,7 @@ module Gosu
   module Physics
     module AABB
       GRAVITY = 800
-      FRICTION = 0.99
+      FRICTION = 0.98
 
       def self.collide?(main_body, other_body, side_by_side: false)
         p1x = [main_body.x, other_body.x].max

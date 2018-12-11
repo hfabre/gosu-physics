@@ -59,7 +59,7 @@ module Gosu
       end
 
       def collide?(other_body)
-        AABB.collide?(self, other_body)
+        AABB.collide?(self, other_body, side_by_side: true)
       end
 
       def draw
